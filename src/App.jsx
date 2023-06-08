@@ -9,6 +9,9 @@ import snow from "./img/Snow.jpg";
 import "boxicons";
 import axios from "axios";
 import dayjs from "dayjs";
+import { useDispatch, useSelector } from "react-redux";
+import { getData } from "./Redux/Redux";
+import { cities } from "./Cities/cities";
 
 function App() {
   const [data, setData] = useState({
@@ -21,6 +24,7 @@ function App() {
     image: cloudy,
   });
 
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [error, setError] = useState("");
 
@@ -31,6 +35,7 @@ function App() {
   //     .then((response) => console.log(response.data))
   //     .catch((error) => console.log(error));
   // }, []);
+
 
   const handelSubmit = (e) => {
     e.preventDefault();
@@ -51,6 +56,8 @@ function App() {
         } else {
           img = cloudy;
         }
+        // const weatherInfo = apiUrl.data;
+        // dispatch(getData(weatherInfo));
         if (response.data.rain) {
           setData({
             ...data,
@@ -76,17 +83,21 @@ function App() {
         }
         setError("");
         console.log("response", response.data);
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          setError("Invalid city name");
+        } else {
+          setError("");
+        }
+        console.log(err);
       });
-      // .catch((err) => {
-      //   if (err.response.status === 404) {
-      //     setError("Invalid city name");
-      //   } else {
-      //     setError("");
-      //   }
-      //   console.log(err);
-      // });
     }
   };
+
+  const handleSearch = (e) => {
+    setName(e.target.value)
+  }
 
   const date = new Date();
   const formatted3 = Intl.DateTimeFormat("en-GB", {
@@ -115,32 +126,24 @@ function App() {
           </div>
         </div>
         <div className="container__right">
-          <form onClick={handelSubmit} type="submit" className="search__input">
+          <form type="submit" className="search__input">
             <input
               name="input"
-              onChange={(e) => setName(e.target.value)}
               className="input"
               placeholder="Another location"
               type="text"
+              onChange={handleSearch}
             />
-            <div className="search__icon">
+            <div onClick={handelSubmit} className="search__icon">
               <box-icon name="search"></box-icon>
             </div>
           </form>
           <div className="regions">
-            <p>Tashkent</p>
-            <p>Samarkand</p>
-            <p>Bukhara</p>
-            <p>Urgench</p>
-            <p>Nukus</p>
-            <p>Navoiy</p>
-            <p>Qarshi</p>
-            <p>Termiz</p>
-            <p>Fergana</p>
-            <p>Namangan</p>
-            <p>Andijon</p>
-            <p>Guliston</p>
-            <p>Jizzakh</p>
+            {cities.map((city, i) => (
+              <p key={i} onClick={() => setName(city)}>
+                {city}
+              </p>
+            ))}
           </div>
           <div className="weather__detailes">
             <h4>Weather Details</h4>
