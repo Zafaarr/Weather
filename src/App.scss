@@ -39,12 +39,12 @@ body {
   -ms-text-size-adjusst: 100%;
   -moz-text-size-adjusst: 100%;
   -webkit-text-size-adjust: 100%;
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    0deg,
-    rgb(46, 102, 187) 15%,
-    rgb(147, 194, 204) 100%
-  );
+  // background: rgb(2, 0, 36);
+  // background: linear-gradient(
+  //   0deg,
+  //   rgb(46, 102, 187) 15%,
+  //   rgb(147, 194, 204) 100%
+  // );
 }
 /*quyidagi teglarning shriftlar oilasini vorislashi taminlanadi*/
 input,
@@ -88,47 +88,83 @@ h6 {
 }
 
 .wrapper {
-  //   position: relative;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .container {
-  position: fixed;
+  position: absolute;
   right: 0;
   bottom: 0;
   display: flex;
   width: 100%;
-  //   height: 100%;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .container__left {
   width: 100%;
   & img {
     z-index: 1;
-    min-width: 100%;
     object-fit: cover;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
   }
+}
+
+.brand {
+  z-index: 11;
+  position: absolute;
+  top: 10%;
+  left: 7%;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
 }
 
 .weather__info {
   z-index: 2;
-  position: fixed;
+  position: absolute;
   top: 73%;
   left: 7%;
   width: 42%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  //   border: 1px solid black;
+  @media (max-width: 1090px) {
+    width: 46%;
+  }
+  @media (max-width: 840px) {
+    width: 48%;
+  }
+  @media (max-width: 800px) {
+    width: 80%;
+    top: 22%;
+  }
 }
 
 .weather__gradus {
+  display: flex;
+  align-items: flex-end;
   color: white;
   font-weight: 500;
   font-size: 75px;
   line-height: 30px;
+  @media (max-width: 950px) {
+    font-size: 65px;
+  }
+  @media (max-width: 485px) {
+    font-size: 50px;
+  }
+  @media (max-width: 390px) {
+    font-size: 40px;
+  }
 }
 
 .weather__location {
@@ -137,6 +173,15 @@ h6 {
     font-weight: 500;
     font-size: 50px;
     line-height: 40px;
+    @media (max-width: 950px) {
+      font-size: 45px;
+    }
+    @media (max-width: 485px) {
+      font-size: 35px;
+    }
+    @media (max-width: 390px) {
+      font-size: 28px;
+    }
   }
 }
 
@@ -146,6 +191,9 @@ h6 {
     color: white;
     font-size: 14px;
     line-height: 30px;
+    @media (max-width: 485px) {
+      font-size: 11px;
+    }
   }
 }
 
@@ -155,23 +203,34 @@ h6 {
   color: white;
   font-size: 20px;
   line-height: 35px;
+  @media (max-width: 485px) {
+    font-size: 15px;
+  }
 }
 
 .container__right {
   z-index: 5;
-  position: fixed;
-  top: 5%;
-  right: 2%;
+  position: absolute;
+  top: 0;
+  right: 0;
   width: 35%;
+  height: 100%;
   padding: 30px;
-  //   background-color: rgb(55, 110, 211);
-  //   background: rgb(2, 0, 36);
-  //   background: linear-gradient(
-  //     45deg,
-  //     rgba(2, 0, 36, 1) 0%,
-  //     rgba(64, 148, 242, 1) 46%,
-  //     rgba(9, 9, 121, 1) 100%
-  //   );
+  background: rgba(110, 110, 110, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  // overflow-y: scroll;
+  @media (max-width: 800px) {
+    width: 100%;
+    top: 45%;
+    // height: 100%;
+  }
+}
+
+.container__right::-webkit-scrollbar {
+  display: none;
 }
 
 .search__input {
@@ -179,18 +238,18 @@ h6 {
   justify-content: space-between;
   & .input {
     border: none;
+    background: none;
     align-self: flex-end;
-    width: 65%;
+    width: 70%;
     height: 30px;
     font-size: 20px;
-    color: white;
-    // background-color: rgb(119, 197, 241);
-    border-bottom: 1px solid grey;
+    padding: 15px 0;
+    color: #fff;
+    border-bottom: 1px solid #ccc;
   }
   & .input::placeholder {
     color: white;
     font-size: 16px;
-    opacity: 1;
   }
   & .search__icon {
     cursor: pointer;
@@ -199,19 +258,22 @@ h6 {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(214, 240, 247);
+    background-color: rgb(241, 245, 247);
+    @media (max-width: 430px) {
+      width: 60px;
+    height: 55px;
+    }
   }
-}
-
-.input[type="text"],
-textarea {
-  background-color: #bbcdce;
+  .search__icon:hover {
+    transition: 1s;
+    background-color: rgb(198, 202, 204);
+  }
 }
 
 .regions {
   margin-top: 25px;
   padding-bottom: 25px;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #ccc;
   max-height: 170px;
   overflow: hidden;
   overflow-y: auto;
@@ -221,6 +283,10 @@ textarea {
     font-size: 16px;
     line-height: 40px;
     color: white;
+    transition: transform 0.5s ease;
+  }
+  & p:hover {
+    transform: scaleY(1.2) translateX(10px);
   }
 }
 
@@ -230,7 +296,7 @@ textarea {
 
 .weather__detailes {
   margin-top: 25px;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #ccc;
   padding-bottom: 15px;
   & h4 {
     color: white;
@@ -252,7 +318,9 @@ textarea {
 .error {
   z-index: 7;
   position: absolute;
-  top: 10%;
+  top: 30%;
+  left: 7%;
   color: red;
-  font-size: 25px;
+  font-size: 30px;
+  font-weight: 500;
 }

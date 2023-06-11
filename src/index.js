@@ -6,9 +6,7 @@ import { combineReducers, createStore } from "redux";
 import { weatherReducer } from "./Redux/Redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-
 const allReducers = combineReducers({ data: weatherReducer });
-
 const store = createStore(allReducers);
 
 root.render(
