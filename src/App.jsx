@@ -73,6 +73,7 @@ function App() {
           type: response.data.weather[0].main,
           image: img,
         });
+        setError("");
         console.log("response", response.data);
       })
       .catch((err) => {
